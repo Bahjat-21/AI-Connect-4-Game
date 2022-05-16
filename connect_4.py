@@ -59,6 +59,13 @@ def printBoard(board):
     print('')
 
 def main():
+       player1 = str( input('X oder O: '))
+    if player1 != 'X' and player1 != 'O':
+        player1 = str( input('X oder O: '))
+    if player1 == 'X':
+        player2 = 'O'
+    else:
+        player2 = 'X'
     board = initBoard()
     Stacks = initStacks()
     printBoard(board)
