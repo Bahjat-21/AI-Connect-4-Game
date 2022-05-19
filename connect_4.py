@@ -58,17 +58,38 @@ def printBoard(board):
     print(top)
     print('')
 
+def move(piece, board, Stacks, player):
+    Set0 = {'1','2','3','4','5','6','7'}
+    pos = str(input('Your move: '))
+    if (pos in Set0) == False:
+        print('Input must be integer between 1 and 7')
+        move(piece,board,Stacks,player)
+    else:
+        pos = int(pos)
+        Stacks[pos-1].push(piece)
+        board[6-len(Stacks[pos-1])] [pos-1] = Stacks[pos-1].peek()
+        game = True
+    return board, Stacks
+
+
+
 def main():
-       player1 = str( input('X oder O: '))
+    board = initBoard()
+    Stacks = initStacks()
+    printBoard(board)
+    player1 = str(input('X oder O: '))
     if player1 != 'X' and player1 != 'O':
-        player1 = str( input('X oder O: '))
+        player1 = str(input('X oder O: '))
     if player1 == 'X':
         player2 = 'O'
     else:
         player2 = 'X'
-    board = initBoard()
-    Stacks = initStacks()
-    printBoard(board)
+    game = False
+    while game == False:
+        board, Stacks = move('X', board, Stacks, player1)
+        printBoard(board)
+
+
 
 if __name__ == '__main__':
     main()
