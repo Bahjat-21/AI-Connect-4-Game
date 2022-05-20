@@ -1,8 +1,4 @@
-# print board
 
-# Initialize board (empty)
-
-# Class stack (for each column)
 class Stack:
     def __init__(self):
         self._list = []
