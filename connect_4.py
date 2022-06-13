@@ -61,12 +61,6 @@ def checkIfDraw(Stacks):
         return True
     else:
         return False
-    # for stacks in Stacks:
-    #     if len(stacks[1]) & len(stacks[2]) & len(stacks[3])
-    #         return False
-    #     else:
-    #         return True
-
 
 def move(piece, board, Stacks, computer):
     Set0 = {'1', '2', '3', '4', '5', '6', '7'}
