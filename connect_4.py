@@ -1,7 +1,8 @@
+import pickle
 
 class Stack:
-    def __init__(self):
-        self._list = []
+    def __init__(self, size):
+        self._list = [] * size
 
     def __len__(self):
         return len(self._list)
@@ -26,8 +27,8 @@ def initBoard():
 
 
 def initStacks():
-    S = [Stack(), Stack(), Stack(),
-         Stack(), Stack(), Stack(), Stack()]
+    S = [Stack(6), Stack(6), Stack(6),
+         Stack(6), Stack(6), Stack(6), Stack(6)]
     return S
 
 
@@ -55,39 +56,64 @@ def printBoard(board):
     print(top)
     print('')
 
+def checkIfDraw(Stacks):
+    if len(Stacks[0]) == 6 & len(Stacks[1]) == 6 & len(Stacks[2]) == 6 & len(Stacks[3]) == 6 & len(Stacks[4]) == 6 & len(Stacks[5]) == 6 & len(Stacks[6]) == 6:
+        return True
+    else:
+        return False
+    # for stacks in Stacks:
+    #     if len(stacks[1]) & len(stacks[2]) & len(stacks[3])
+    #         return False
+    #     else:
+    #         return True
+
 
 def move(piece, board, Stacks, computer):
     Set0 = {'1', '2', '3', '4', '5', '6', '7'}
-    if piece != computer:
-        pos = str(input(piece + ' move: '))
-        if (pos in Set0) == False:
-            print('Input must be integer between 1 and 7')
-            move(piece, board, Stacks, computer)
-        else:
-            pos = int(pos)
-            if len(Stacks[pos - 1]) < 6:
-                Stacks[pos - 1].push(piece)
-                board[6 - len(Stacks[pos - 1])][pos - 1] = \
-                    Stacks[pos - 1].peek()
-            else:
-                print('Column full, try again...')
+    if checkIfDraw(Stacks) == False:
+        if piece != computer:
+            pos = str(input(piece + ' move: '))
+            if pos == "close":
+                with open('savefile.dat', 'wb') as f:
+                    pickle.dump([board, Stacks], f, protocol=2)
+                print("Game saved")
+                exit()
+            elif (pos in Set0) == False:
+                print('Input must be integer between 1 and 7')
                 move(piece, board, Stacks, computer)
-    elif piece == computer:
-        pos = str(input(piece + ' move: '))
-        if (pos in Set0) == False:
-            print('Input must be integer between 1 and 7')
-            move(piece, board, Stacks, computer)
-        else:
-            pos = int(pos)
-            if len(Stacks[pos - 1]) < 6:
-                Stacks[pos - 1].push(piece)
-                board[6 - len(Stacks[pos - 1])][pos - 1] = \
-                    Stacks[pos - 1].peek()
             else:
-                print('Column full, try again...')
+                pos = int(pos)
+                if len(Stacks[pos - 1]) < 6:
+                    Stacks[pos - 1].push(piece)
+                    board[6 - len(Stacks[pos - 1])][pos - 1] = \
+                        Stacks[pos - 1].peek()
+                else:
+                    print('Column full, try again...')
+                    move(piece, board, Stacks, computer)
+        elif piece == computer:
+            pos = str(input(piece + ' move: '))
+            if pos == "close":
+                with open('savefile.dat', 'wb') as f:
+                    pickle.dump([board, Stacks], f, protocol=2)
+                print("Game saved")
+                exit()
+            elif (pos in Set0) == False:
+                print('Input must be integer between 1 and 7')
                 move(piece, board, Stacks, computer)
+            else:
+                pos = int(pos)
+                if len(Stacks[pos - 1]) < 6:
+                    Stacks[pos - 1].push(piece)
+                    board[6 - len(Stacks[pos - 1])][pos - 1] = \
+                        Stacks[pos - 1].peek()
+                else:
+                    print('Column full, try again...')
+                    move(piece, board, Stacks, computer)
 
-    return board, Stacks
+        return board, Stacks
+    else:
+        print("Its a draw")
+        exit()
 
 def checkWin(S, board):
     game = False
@@ -119,6 +145,8 @@ def checkWin(S, board):
 
 
 def main():
+    print("To end and save the game enter the command 'close'")
+    print("Choose either X or O")
     player1 = str(input('X or O: '))
     if player1 != 'X' and player1 != 'O':
         player1 = str(input('X or O: '))
@@ -126,9 +154,17 @@ def main():
         computer1 = 'O'
     else:
         computer1 = 'X'
-    board = initBoard()
-    Stacks = initStacks()
-    printBoard(board)
+    print("To load up an old game enter \"y\" if not enter \"n\" \n"
+          "This will load up the game that you last saved using the command \"close\"")
+    game = str(input('Load old game: '))
+    if game == 'y':
+        with open('savefile.dat', 'rb') as f:
+            board, Stacks = pickle.load(f)
+        printBoard(board)
+    elif game == 'n':
+        board = initBoard()
+        Stacks = initStacks()
+        printBoard(board)
     game = False
     while game == False:
         board, Stacks = move('X', board, Stacks, computer1)
@@ -136,7 +172,6 @@ def main():
         game = checkWin('X', board)
         if game == True:
             break
-
         board, Stacks = move('O', board, Stacks, computer1)
         printBoard(board)
         game = checkWin('O', board)
