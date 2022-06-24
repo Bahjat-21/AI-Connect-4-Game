@@ -14,30 +14,10 @@
 # For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
 
 stages:          # List of stages for jobs, and their order of execution
-    - test
     - build
     - package
     - e2e
     - cleanup
-
-test:
-    stage: test
-    image: python:3.10-slim-bullseye
-    script:
-        - pip install pipenv
-        - pipenv install --dev
-        - pipenv run coverage run -m pytest --junitxml=report.xml tests
-        - pipenv run coverage report
-        - pipenv run coverage xml
-    coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'
-    artifacts:
-      reports:
-        junit: report.xml
-        coverage_report:
-          coverage_format: cobertura
-          path: coverage.xml
-
-
 
 
 build:   # This job runs in the build stage, which runs first.
