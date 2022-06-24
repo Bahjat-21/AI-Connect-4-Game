@@ -234,12 +234,6 @@ def main():
     elif old_game == "n":
         board = create_board()
         print_board(board)
-    if game_mode == 3:
-        turn = random.randint(PLAYER, AI)
-        if turn == 0:
-            print("AI 1")
-        elif turn == 1:
-            print("AI 2")
     while not game_over:
         if game_mode == 1:
             if check_if_draw(board):
