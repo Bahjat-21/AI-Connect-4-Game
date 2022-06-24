@@ -140,5 +140,4 @@ Scenario: AI vs AI
     When  The Instructions appear
     And I choose game mode: 3
     And Load old game: n
-    And AI 1 goes first
     Then AI 1 wins
