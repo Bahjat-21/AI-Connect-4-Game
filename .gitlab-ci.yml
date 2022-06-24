@@ -57,7 +57,6 @@ e2e-test:
         - pip3 install pipenv
         - pipenv install behave
         - pipenv install pexpect
-        - pipenv install numpy
         - pipenv install --dev
         - pipenv run behave
     after_script:
