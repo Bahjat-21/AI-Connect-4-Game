@@ -42,7 +42,7 @@ containerize:
         - docker-compose build #. -t ${CI_REGISTRY_IMAGE}/gcd:${CI_COMMIT_REF_SLUG}
         - docker-compose push #${CI_REGISTRY_IMAGE}/connect4:${CI_COMMIT_REF_SLUG}
     after_script:
-        - docker rmi ${CI_REGISTRY_IMAGE}/connect4:latest #${CI_COMMIT_REF_SLUG}
+        - docker rmi ${CI_REGISTRY_IMAGE}/connect4 #${CI_COMMIT_REF_SLUG}
 
 e2e-test:
     stage: e2e
