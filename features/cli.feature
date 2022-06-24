@@ -104,13 +104,6 @@ Scenario: Entering a number that is too big
     And Player X enters column 9
     Then input to large error
 
-Scenario: loading saved game
-    Given I start the game
-    When  The Instructions appear
-    And I choose game mode: 2
-    And Load old game: y
-    Then old game loaded
-
 Scenario: saving game
     Given I start the game
     When  The Instructions appear
@@ -121,6 +114,14 @@ Scenario: saving game
     And Player X enters column 1
     And Player O enters close
     Then game closed
+
+Scenario: loading saved game
+    Given I start the game
+    When  The Instructions appear
+    And I choose game mode: 2
+    And Load old game: y
+    Then old game loaded
+
 
 Scenario: AI vs Player
     Given I start the game
