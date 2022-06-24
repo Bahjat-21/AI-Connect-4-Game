@@ -44,10 +44,6 @@ def step_impl(context,close, player):
     context.proc.expect(f"Player {player} enter your move: ")
     context.proc.sendline(close)
 
-@when("AI 1 goes first")
-def step_impl(context):
-    context.proc.expect("AI 1")
-
 @then("Player {player} wins")
 def step_impl(context, player):
     context.proc.expect(f"{player} wins!")
