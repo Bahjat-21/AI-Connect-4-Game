@@ -2,7 +2,7 @@ version: '2.0'
 services:
   connect4:
     build: .
-    image: connect4:latest
+    image: registry.mygit.th-deg.de/sm04323/connect-4/connect4:latest
     volumes:
       - data:/usr/saveddata
 
