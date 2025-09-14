@@ -35,14 +35,14 @@ Python 3.9+
 ## Play the Game
 At startup, select the game mode:
 
-- Game mode player vs ai = 1
-- Game mode player vs player = 2
-- Game mode ai vs ai = 3
+- Game mode player vs ai = "1"
+- Game mode player vs player = "2"
+- Game mode ai vs ai = "3"
 
 ## Save & Load Games
 
 During gameplay:
-- Type close to save the current game and exit.
+- Type "close" to save the current game and exit.
 
 At startup:
-- Enter y to load the last saved game.
+- Enter "y" to load the last saved game.
